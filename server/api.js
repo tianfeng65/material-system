@@ -6,16 +6,15 @@ const conn = new DBHelper().getConn();
 
 // 查询数据
 router.post('/search', (req, res) => {
-    // let params = req.body;
     const {name, supplier} = req.body
-    // let sqlStr = `select * from '${suppliers.join(',')}' where '品名' like '${name}'`
-    let sqlStr = `select * from ${supplier}`
+    let sqlStr = name 
+        ? `select * from ${supplier} where 品名 like '%${name}%'` 
+        : `select * from ${supplier}`
+    console.log(sqlStr)
     conn.query(sqlStr, (err, result) => {
         if (err) {
-            console.log(err)
             return err
         } else {
-            console.log(result)
             return res.json({tableData: result})
         }
     });

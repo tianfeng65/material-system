@@ -4,7 +4,7 @@
   <div class="header">
     <el-form inline label-width="80px" :model="formData">
       <el-form-item label="名称">
-        <el-input v-model="formData.name"></el-input>
+        <el-input v-model="formData.name" :clearable="true"></el-input>
       </el-form-item>
       <el-form-item label="供应商">
         <el-select v-model="formData.supplier" placeholder="请选择供应商">
