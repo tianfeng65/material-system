@@ -8,8 +8,7 @@
       </el-form-item>
       <el-form-item label="供应商">
         <el-select v-model="formData.supplier" placeholder="请选择供应商">
-          <el-option v-for="item of suppliersOptions" :label="item" :value="item" :key="item"></el-option>
-          <el-option label="区域二" value="beijing"></el-option>
+          <el-option v-for="item of suppliers" :label="item" :value="item" :key="item"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item size="large">
@@ -35,11 +34,10 @@ export default {
   data(){
     return{
       formData: {
-        name: '特级王中王',
-        supplier: 'kk店'
+        name: '',
+        supplier: ''
       },
-      suppliersOptions: [],
-      selectedSupplier: '',
+      suppliers: [],
       tableData: []
     }
   },
@@ -49,13 +47,13 @@ export default {
   },
   methods:{
     getSuppliers() {
-      this.$axios.get('/api/suppliers').then(res => this.suppliersOptions = res.data)
+      this.$axios.get('/api/suppliers').then(res => this.suppliers = res.data)
     },
     handleSearch() {
       this.$axios.post('/api/search',{
         ...this.formData
       }).then(res=>{
-        this.tableData = res.data
+        this.tableData = res.data.tableData
         this.calcTableColumns()
       }).catch(err=>{
         console.log(err)
